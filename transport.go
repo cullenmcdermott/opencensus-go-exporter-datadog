@@ -82,6 +82,9 @@ func (t *transport) upload(data *bytes.Buffer, traceCount int) (body io.ReadClos
 	req.Header.Set("X-Datadog-Trace-Count", strconv.Itoa(traceCount))
 	req.Header.Set("Content-Length", strconv.Itoa(data.Len()))
 	response, err := t.client.Do(req)
+
+	fmt.Printf("HTTP REQUEST: %v\n", req)
+	fmt.Printf("HTTP RESPONSE: %v\n", response)
 	if err != nil {
 		return nil, err
 	}

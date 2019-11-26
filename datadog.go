@@ -9,6 +9,7 @@ import (
 	"log"
 	"regexp"
 	"strings"
+	"fmt"
 
 	"go.opencensus.io/stats/view"
 	"go.opencensus.io/tag"
@@ -97,10 +98,15 @@ func NewExporter(o Options) (exporter *Exporter, err error) {
 	if err != nil {
 		return nil, err
 	}
-	return &Exporter{
+
+	myExporter := Exporter{
 		statsExporter: statsExporter,
 		traceExporter: newTraceExporter(o),
-	}, nil
+	}
+
+	fmt.Printf("My trace Exporter: %p\n", &myExporter.traceExporter.uploadFn)
+
+	return &myExporter, nil
 }
 
 // regex pattern
@@ -140,5 +146,6 @@ func (o *Options) tagMetrics(rowTags []tag.Tag, addlTags []string) []string {
 			rowTags[key].Key.Name()+":"+rowTags[key].Value)
 	}
 	finalTags = append(finalTags, addlTags...)
+	fmt.Printf("printing final tags %v\n", finalTags)
 	return finalTags
 }
