@@ -37,6 +37,8 @@ func (e *Exporter) ExportView(vd *view.Data) {
 
 // ExportSpan implements trace.Exporter.
 func (e *Exporter) ExportSpan(s *trace.SpanData) {
+	fmt.Printf("Printing TraceExporter from ExportSpan: %v", e.traceExporter)
+	fmt.Printf("Printing TraceExporter.exportSpan(s) from ExportSpan: %v", e.traceExporter.ExportSpan(s))
 	e.traceExporter.exportSpan(s)
 }
 
