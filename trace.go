@@ -10,6 +10,7 @@ import (
 	"io"
 	"sync"
 	"time"
+	"fmt"
 
 	"go.opencensus.io/trace"
 )
@@ -69,6 +70,8 @@ func newTraceExporter(o Options) *traceExporter {
 		in:       make(chan *ddSpan, inChannelSize),
 		exit:     make(chan struct{}),
 	}
+
+	fmt.Printf("Printing from inside newTraceExporter: %v", e)
 
 	go e.loop()
 
