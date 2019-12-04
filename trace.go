@@ -71,7 +71,7 @@ func newTraceExporter(o Options) *traceExporter {
 		exit:     make(chan struct{}),
 	}
 
-	fmt.Printf("Printing from inside newTraceExporter: %v", e)
+	fmt.Printf("Printing from inside newTraceExporter: %v\n", e)
 
 	go e.loop()
 
@@ -94,6 +94,7 @@ func (e *traceExporter) loop() {
 	defer close(e.exit)
 	tick := time.NewTicker(flushInterval)
 	defer tick.Stop()
+	fmt.Printf("Printfing from inside e loop: %v\n", e)
 
 loop:
 	for {
